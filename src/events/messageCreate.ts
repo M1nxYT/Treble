@@ -1,11 +1,11 @@
-import Discord from 'discord.js';
+import Discord, { Message } from 'discord.js';
 import { customClient } from '../bot';
 
 export let messageCreate = {
     name: 'messageCreate',
     once: false,
     async execute(args: any[], client: customClient) {
-        let message = args[0];
+        let message: Message = args[0];
         if (!message.guild) return;
 
         let whitelist = ['719292655963734056', '293903980935774208']
@@ -25,6 +25,10 @@ export let messageCreate = {
                     await message.reply('Deployed!');
                 }
             }
+        }
+        if(message.content.toLowerCase() === '!fix' && message.guild.ownerId === message.author.id) {
+            await message.guild.commands.set([]);
+            await message.reply('Commands should be fixed, if not dm Minxter');
         }
     }
 }
