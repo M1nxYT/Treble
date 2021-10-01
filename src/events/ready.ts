@@ -1,13 +1,17 @@
 import Discord, { Options } from 'discord.js';
 import { customClient } from '../bot';
 
-const express = require('express')
-const app = express()
-const port = 3000
+import { Request, Response } from 'express';
+import path from 'path';
+import { json } from 'stream/consumers';
+import { MusicSubscription } from 'src/classes/subscription';
+import { AudioPlayerStatus } from '@discordjs/voice';
 
 var ConsoleGrid = require("console-grid");
 const CGS = ConsoleGrid.Style;
 var grid = new ConsoleGrid();
+
+const port = 3100;
 
 let readyData = {
     option: {
@@ -83,10 +87,6 @@ export let ready = {
             readyData.rows.push(guildRow);
         }
 
-        app.get('*', (req: any, res: any) => {
-            res.send('Hello World!')
-        })
-
         if (client.db.readyState == 1) {
             let dbRow = {
                 name: CGS.green(`Bot Database Connected `)
@@ -94,13 +94,38 @@ export let ready = {
             extrasData.rows.push(dbRow);
         }
 
-        app.listen(port, () => {
+        client.app.listen(port, () => {
             let expressRow = {
                 name: CGS.green(`Bot Dashboard accessible at `) + CGS.blue(`http://localhost:${port}`)
             };
             extrasData.rows.push(expressRow);
             grid.render(readyData);
             grid.render(extrasData);
+        })
+
+        client.app.get('*', async (req: Request, res: Response) => {
+            let jsonObject = new Array()
+            client.subscriptions.forEach((value : MusicSubscription, key: string) => {
+                if (value.audioPlayer.state.status === AudioPlayerStatus.Playing) {
+                    let sub = {
+                        id : key,
+                        nowplaying: value.audioPlayer.state.resource.metadata,
+                        queue: value.queue,
+                        loopEnabled: value.isLooped
+                    }
+                    jsonObject.push(sub)
+                }
+                else {
+                    let sub = {
+                        id : key,
+                        nowplaying: 'Treble is currently not playing or paused in this server.',
+                        queue: value.queue,
+                        loopEnabled: value.isLooped
+                    }
+                    jsonObject.push(sub)
+                }
+            });
+            res.json(jsonObject)
         })
     }
 }

@@ -1,4 +1,4 @@
-import Discord, { Interaction, GuildMember, Snowflake, MessageActionRow, MessageEmbed, MessageSelectMenu, TextChannel, Intents } from 'discord.js';
+import Discord, { Interaction, GuildMember, Snowflake, MessageActionRow, MessageEmbed, MessageSelectMenu, TextChannel, Intents, ColorResolvable } from 'discord.js';
 import { AudioPlayerStatus, AudioResource, entersState, joinVoiceChannel, VoiceConnectionStatus } from '@discordjs/voice';
 import { Track } from './classes/track';
 import { MusicSubscription } from './classes/subscription';
@@ -8,16 +8,19 @@ import * as dotenv from 'dotenv';
 import * as fs from 'fs';
 import mongoose from 'mongoose';
 import * as models from './classes/models';
+import express from 'express';
+import path from 'path';
 dotenv.config();
 
 export class customClient extends Discord.Client {
 	spotifyCredentials: any;
-	subscriptions: any;
+	subscriptions!: Map<any, any>;
 	commands: any;
 	secondsToHms: any;
 	rgbToHex: any;
 	db!: mongoose.Connection;
 	models!: typeof models;
+	app!: any;
 }
 
 const client = new customClient({
@@ -29,6 +32,8 @@ client.db = mongoose.connection;
 if (process.env['MONGODB']) {
 	mongoose.connect(process.env['MONGODB']);
 }
+
+client.app = express();
 
 client.db.on('error', console.error.bind(console, 'connection error:'));
 client.models = models;
