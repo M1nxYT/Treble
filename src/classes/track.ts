@@ -53,10 +53,7 @@ export class Track implements TrackData {
 			const process = ytdl(
 				this.url,
 				{
-					o: '-',
-					q: '',
-					f: 'bestaudio[ext=webm+acodec=opus+asr=48000]/bestaudio',
-					r: '100K',
+					audioFormat: 'bestaudio[ext=webm+acodec=opus+asr=48000]/bestaudio',
 				},
 				{ stdio: ['ignore', 'pipe', 'ignore'] },
 			);
