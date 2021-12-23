@@ -6,7 +6,7 @@ const { getColorFromURL } = require('color-thief-node'); // get color from image
 const Spotify = require('node-spotify-api') // spotify search
 const yts = require('yt-search') // youtube search
 const ytdl = require('ytdl-core'); // fetches audio info
-const { MusicSubscription } = require('../music/subscription.js'); // music subs
+const { MusicSubscription } = require('../classes/subscription.js'); // music subs
 import { Track } from '../classes/track';
 
 export let play = {
