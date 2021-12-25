@@ -30,7 +30,7 @@ export let nowplaying = {
                     .addField('Upload Date', song.publishDate || "Not Found!", true)
                     .addField('Views', song.viewCount || "Not Found!", true)
                     .addField('Likes', song.likes.toString() || "Not Found!", true)
-                    .addField('Dislikes', song.dislikes.toString() || "Not Found!", true)
+                    //.addField('Dislikes', song.dislikes.toString() || "Not Found!", true)
                     .addField('Rating', Math.floor(song.averageRating / 5 * 100).toString() + '%' || "Not Found!", true)
                     .setFooter('Youtube', 'https://i.imgur.com/v2zMp3T.png');
 

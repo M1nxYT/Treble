@@ -53,7 +53,11 @@ export class Track implements TrackData {
 			const process = ytdl(
 				this.url,
 				{
-					audioFormat: 'bestaudio[ext=webm+acodec=opus+asr=48000]/bestaudio',
+					// @ts-ignore
+					o: '-',
+					q: '',
+					f: 'bestaudio[ext=webm+acodec=opus+asr=48000]/bestaudio',
+					r: '100K',
 				},
 				{ stdio: ['ignore', 'pipe', 'ignore'] },
 			);
@@ -112,7 +116,7 @@ export class Track implements TrackData {
                         .addField('Upload Date', song.publishDate || "Not Found!", true)
                         .addField('Views', song.viewCount || "Not Found!", true)
                         .addField('Likes', song.likes.toString() || "Not Found!", true)
-                        .addField('Dislikes', song.dislikes.toString() || "Not Found!", true)
+                        //.addField('Dislikes', song.dislikes.toString() || "Not Found!", true)
                         .addField('Rating', Math.floor(song.averageRating / 5 * 100).toString() + '%' || "Not Found!", true)
                         .setFooter('Youtube', 'https://i.imgur.com/v2zMp3T.png');
 
