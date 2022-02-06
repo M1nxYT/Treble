@@ -23,7 +23,6 @@ export let commands = [
     nowplaying,
     lyrics,
     test,
-    ping,
     uptime,
     status
-]
+] // removed ping for now
