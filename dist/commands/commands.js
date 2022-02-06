@@ -9,10 +9,7 @@ const stop_1 = require("./stop");
 const queue_1 = require("./queue");
 const loop_1 = require("./loop");
 const nowplaying_1 = require("./nowplaying");
-const test_1 = require("./test");
 const lyrics_1 = require("./lyrics");
-const uptime_1 = require("./uptime");
-const statusrefresh_1 = require("./statusrefresh");
 exports.commands = [
     play_1.play,
     pause_1.pause,
@@ -23,8 +20,5 @@ exports.commands = [
     loop_1.loop,
     nowplaying_1.nowplaying,
     lyrics_1.lyrics,
-    test_1.test,
-    uptime_1.uptime,
-    statusrefresh_1.status
-]; // removed ping for now
+]; // removed ping, test, uptime and status for now
 //# sourceMappingURL=commands.js.map
