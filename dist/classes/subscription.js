@@ -3,14 +3,14 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.MusicSubscription = void 0;
 const voice_1 = require("@discordjs/voice");
 const util_1 = require("util");
-const wait = (0, util_1.promisify)(setTimeout);
+const wait = util_1.promisify(setTimeout);
 class MusicSubscription {
     constructor(voiceConnection) {
         this.isLooped = false;
         this.queueLock = false;
         this.readyLock = false;
         this.voiceConnection = voiceConnection;
-        this.audioPlayer = (0, voice_1.createAudioPlayer)();
+        this.audioPlayer = voice_1.createAudioPlayer();
         this.queue = [];
         this.voiceConnection.on('stateChange', async (_, newState) => {
             if (newState.status === voice_1.VoiceConnectionStatus.Disconnected) {
@@ -23,7 +23,7 @@ class MusicSubscription {
                         the voice connection.
                     */
                     try {
-                        await (0, voice_1.entersState)(this.voiceConnection, voice_1.VoiceConnectionStatus.Connecting, 5000);
+                        await voice_1.entersState(this.voiceConnection, voice_1.VoiceConnectionStatus.Connecting, 5000);
                         // Probably moved voice channel
                     }
                     catch {
@@ -60,7 +60,7 @@ class MusicSubscription {
                 */
                 this.readyLock = true;
                 try {
-                    await (0, voice_1.entersState)(this.voiceConnection, voice_1.VoiceConnectionStatus.Ready, 20000);
+                    await voice_1.entersState(this.voiceConnection, voice_1.VoiceConnectionStatus.Ready, 20000);
                 }
                 catch {
                     if (this.voiceConnection.state.status !== voice_1.VoiceConnectionStatus.Destroyed)

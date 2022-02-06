@@ -31,7 +31,7 @@ class Track {
      */
     createAudioResource() {
         return new Promise((resolve, reject) => {
-            const process = (0, youtube_dl_exec_1.raw)(this.url, {
+            const process = youtube_dl_exec_1.raw(this.url, {
                 // @ts-ignore
                 o: '-',
                 q: '',
@@ -51,8 +51,8 @@ class Track {
             };
             process
                 .once('spawn', () => {
-                (0, voice_1.demuxProbe)(stream)
-                    .then((probe) => resolve((0, voice_1.createAudioResource)(probe.stream, { metadata: this, inputType: probe.type })))
+                voice_1.demuxProbe(stream)
+                    .then((probe) => resolve(voice_1.createAudioResource(probe.stream, { metadata: this, inputType: probe.type })))
                     .catch(onError);
             })
                 .catch(onError);
@@ -67,7 +67,7 @@ class Track {
      * @returns The created Track
      */
     static async from(url, interaction, client) {
-        const info = await (0, ytdl_core_1.getInfo)(url);
+        const info = await ytdl_core_1.getInfo(url);
         let methods = {
             async onStart() {
                 let subscription = client.subscriptions.get(interaction.guildId);
