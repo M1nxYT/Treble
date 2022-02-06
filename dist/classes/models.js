@@ -8,5 +8,5 @@ const FavouritesSchema = new mongoose_1.Schema({
     tracks: [],
     _id: Number,
 });
-exports.Favourites = mongoose_1.model('Favourites', FavouritesSchema);
+exports.Favourites = (0, mongoose_1.model)('Favourites', FavouritesSchema);
 //# sourceMappingURL=models.js.map

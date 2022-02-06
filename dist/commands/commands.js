@@ -11,7 +11,6 @@ const loop_1 = require("./loop");
 const nowplaying_1 = require("./nowplaying");
 const test_1 = require("./test");
 const lyrics_1 = require("./lyrics");
-const ping_1 = require("./ping");
 const uptime_1 = require("./uptime");
 const statusrefresh_1 = require("./statusrefresh");
 exports.commands = [
@@ -25,8 +24,7 @@ exports.commands = [
     nowplaying_1.nowplaying,
     lyrics_1.lyrics,
     test_1.test,
-    ping_1.ping,
     uptime_1.uptime,
     statusrefresh_1.status
-];
+]; // removed ping for now
 //# sourceMappingURL=commands.js.map

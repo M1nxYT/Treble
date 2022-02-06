@@ -45,7 +45,7 @@ client.db = mongoose_1.default.connection;
 if (process.env['MONGODB']) {
     mongoose_1.default.connect(process.env['MONGODB']);
 }
-client.app = express_1.default();
+client.app = (0, express_1.default)();
 client.db.on('error', console.error.bind(console, 'connection error:'));
 client.models = models;
 const events_1 = require("./events/events");
@@ -105,7 +105,7 @@ client.on('interactionCreate', async (interaction) => {
     if (!subscription) {
         if (interaction.member instanceof discord_js_1.GuildMember && interaction.member.voice.channel) {
             const channel = interaction.member.voice.channel;
-            subscription = new subscription_1.MusicSubscription(voice_1.joinVoiceChannel({
+            subscription = new subscription_1.MusicSubscription((0, voice_1.joinVoiceChannel)({
                 channelId: channel.id,
                 guildId: channel.guild.id,
                 adapterCreator: channel.guild.voiceAdapterCreator, // no idea what the fuck this is
@@ -122,7 +122,7 @@ client.on('interactionCreate', async (interaction) => {
     }
     // Make sure the connection is ready before processing the user's request
     try {
-        await voice_1.entersState(subscription.voiceConnection, voice_1.VoiceConnectionStatus.Ready, 20e3); // what the fuck is 20e3
+        await (0, voice_1.entersState)(subscription.voiceConnection, voice_1.VoiceConnectionStatus.Ready, 20e3); // what the fuck is 20e3
     }
     catch (error) {
         console.warn(error);
