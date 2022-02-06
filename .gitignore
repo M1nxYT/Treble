@@ -3,6 +3,5 @@ auth.json
 tsconfig.tsbuildinfo
 node_modules
 .env
-dist
 .dockerignore
 Dockerfile
